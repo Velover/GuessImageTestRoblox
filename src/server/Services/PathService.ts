@@ -24,6 +24,9 @@ const global_root = Workspace.WaitForChild("GlobalRoot") as BasePart;
 const path_root_template = Workspace.WaitForChild("PathRoot") as IPathRootModel;
 const sector_template = Workspace.WaitForChild("Sector") as ISectorModel;
 
+const winner_area_template = Workspace.WaitForChild("WinnerArea") as Model;
+winner_area_template.Parent = undefined;
+
 path_root_template.Parent = undefined;
 sector_template.Parent = undefined;
 
@@ -89,6 +92,10 @@ export class PathService implements OnStart, OnInit {
 			const cframe = path_cframe.add(SECTOR_OFFSET.mul(i++));
 			this.CreateSector(sector_data, cframe);
 		}
+
+		const winner_area_clone = winner_area_template.Clone();
+		winner_area_clone.Parent = Workspace;
+		winner_area_clone.PivotTo(path_cframe.add(SECTOR_OFFSET.mul(i)));
 	}
 
 	private CreateSector(sector: PathGameData.ISectorData, cframe: CFrame) {
