@@ -9,7 +9,11 @@ export class GuiController implements OnStart, OnInit {
 	onInit() {}
 
 	onStart() {
-		const container = Players.LocalPlayer.WaitForChild("PlayerGui");
+		const container = new Instance("ScreenGui");
+		container.ResetOnSpawn = false;
+		container.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+		container.Parent = Players.LocalPlayer.WaitForChild("PlayerGui") as PlayerGui;
+
 		const root = createRoot(container);
 		root.render(React.createElement(App));
 	}
